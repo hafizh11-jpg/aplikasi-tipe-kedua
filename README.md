@@ -273,6 +273,7 @@ python3 aegis_monitor.py
 # Dengan path lengkap
 python /path/to/aegis_monitor.py
 ```
+![Screenshot_20260217_054127.png]
 
 ### 🎮 Interface Overview
 
