@@ -275,7 +275,6 @@ python3 aegis_monitor.py
 python /path/to/aegis_monitor.py
 ```
 
-![Tampilan Utama](Screenshot_20260217_054127.png)
 
 ### 🎮 Interface Overview
 
@@ -302,7 +301,6 @@ python /path/to/aegis_monitor.py
 └─────────────────────────────────────────────────────────────────┘
 ```
 
-![Tampilan Utama](Screenshot_20260217_054209.png)
 
 ---
 
