@@ -21,6 +21,7 @@
 - [📋 50 Fitur Lengkap](#-50-fitur-lengkap)
 - [🚀 Instalasi](#-instalasi)
 - [💻 Cara Menggunakan](#-cara-menggunakan)
+- [🎯 Membuat Command `ptop`](#-membuat-command-ptop)
 - [⌨️ Shortcut Keyboard](#️-shortcut-keyboard)
 - [📁 Struktur Export](#-struktur-export)
 - [🎨 Tampilan UI](#-tampilan-ui)
@@ -273,6 +274,7 @@ python3 aegis_monitor.py
 # Dengan path lengkap
 python /path/to/aegis_monitor.py
 ```
+
 ![Tampilan Utama](Screenshot_20260217_054127.png)
 
 ### 🎮 Interface Overview
@@ -299,9 +301,213 @@ python /path/to/aegis_monitor.py
 │  Status: ● LIVE          AEGIS v3.0 | 50 Features              │
 └─────────────────────────────────────────────────────────────────┘
 ```
+
 ![Tampilan Utama](Screenshot_20260217_054209.png)
 
-### ⌨️ Shortcut Keyboard
+---
+
+## 🎯 Membuat Command `ptop`
+
+> 💡 **Tips:** Dengan membuat command `ptop`, Anda bisa menjalankan AEGIS dari **direktori manapun** tanpa perlu mengetik path lengkap!
+
+### 🐧 Linux
+
+#### Metode 1: Alias di `~/.bashrc` (RECOMMENDED) ⭐
+
+**Cocok untuk:** Pengguna personal, tidak butuh sudo
+
+```bash
+# 1. Buka file ~/.bashrc
+nano ~/.bashrc
+
+# 2. Tambahkan baris ini di bagian bawah
+# GANTI PATH SESUAI LOKASI FILE ANDA!
+alias ptop='python3 /var/home/hafizhtux/Videos/server-monitor\ versi\ 3\ \(BETA\)/aegis_monitor.py'
+
+# 3. Simpan (Ctrl+O, Enter) dan keluar (Ctrl+X)
+
+# 4. Reload konfigurasi
+source ~/.bashrc
+
+# 5. Test
+ptop
+```
+
+> ⚠️ **PENTING:** Gunakan **backslash (`\`)** sebelum spasi dan karakter khusus dalam path!
+
+#### Metode 2: Symlink ke `/usr/local/bin`
+
+**Cocok untuk:** Sistem-wide, semua user bisa akses
+
+```bash
+# 1. Tambahkan shebang di awal aegis_monitor.py
+# #!/usr/bin/env python3
+
+# 2. Buat script executable
+sudo nano /usr/local/bin/ptop
+```
+
+**Isi dengan:**
+```bash
+#!/bin/bash
+python3 /var/home/hafizhtux/Videos/server-monitor\ versi\ 3\ \(BETA\)/aegis_monitor.py "$@"
+```
+
+```bash
+# 3. Buat executable
+sudo chmod +x /usr/local/bin/ptop
+
+# 4. Test
+ptop
+```
+
+---
+
+### 🍎 macOS
+
+#### Metode 1: Alias di `~/.zshrc` (RECOMMENDED) ⭐
+
+**Cocok untuk:** Pengguna personal (macOS Catalina+ menggunakan zsh)
+
+```bash
+# 1. Buka file ~/.zshrc
+nano ~/.zshrc
+
+# 2. Tambahkan baris ini
+alias ptop='python3 /Users/username/path/to/aegis_monitor.py'
+
+# 3. Reload konfigurasi
+source ~/.zshrc
+
+# 4. Test
+ptop
+```
+
+> 💡 **Catatan:** macOS Catalina (10.15) dan yang lebih baru menggunakan **zsh** sebagai default shell, bukan bash.
+
+#### Metode 2: Symlink ke `/usr/local/bin`
+
+**Cocok untuk:** Sistem-wide access
+
+```bash
+# 1. Buat script
+sudo nano /usr/local/bin/ptop
+```
+
+**Isi dengan:**
+```bash
+#!/bin/bash
+python3 /Users/username/path/to/aegis_monitor.py "$@"
+```
+
+```bash
+# 2. Buat executable
+sudo chmod +x /usr/local/bin/ptop
+
+# 3. Test
+ptop
+```
+
+---
+
+### 🪟 Windows
+
+#### Metode 1: Batch File (.bat) (RECOMMENDED) ⭐
+
+**Cocok untuk:** Pengguna Windows umum
+
+```powershell
+# 1. Buat file ptop.bat
+notepad ptop.bat
+```
+
+**Isi `ptop.bat`:**
+```batch
+@echo off
+python C:\path\to\aegis_monitor.py %*
+```
+
+```powershell
+# 2. Pindahkan ke folder di PATH
+# Opsi A: C:\Windows\ (butuh admin)
+move ptop.bat C:\Windows\
+
+# Opsi B: Folder custom yang ditambahkan ke PATH
+move ptop.bat C:\Users\username\bin\
+```
+
+```powershell
+# 3. Test (di Command Prompt)
+ptop
+```
+
+#### Metode 2: PowerShell Alias
+
+**Cocok untuk:** Pengguna PowerShell
+
+```powershell
+# 1. Buka PowerShell Profile
+notepad $PROFILE
+```
+
+**Tambahkan ini:**
+```powershell
+function ptop { python C:\path\to\aegis_monitor.py $args }
+```
+
+```powershell
+# 2. Reload profile
+. $PROFILE
+
+# 3. Test
+ptop
+```
+
+> 💡 **Jika error:** Jalankan `Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser` dulu
+
+---
+
+### 📊 Perbandingan Metode
+
+| OS | Metode | Kelebihan | Kekurangan | Difficulty |
+|----|--------|-----------|------------|------------|
+| **Linux** | Alias `.bashrc` | Mudah, no sudo | Hanya user tertentu | ⭐ |
+| **Linux** | Symlink | Global, semua user | Butuh sudo | ⭐⭐ |
+| **macOS** | Alias `.zshrc` | Mudah, default macOS | Hanya user tertentu | ⭐ |
+| **macOS** | Symlink | Global access | Butuh sudo | ⭐⭐ |
+| **Windows** | Batch File | Mudah, native | Butuh PATH config | ⭐⭐ |
+| **Windows** | PowerShell | Modern, flexible | Hanya PowerShell | ⭐⭐ |
+
+---
+
+### ✅ Verifikasi
+
+Setelah setup, verifikasi dengan command berikut:
+
+#### Linux/macOS
+```bash
+# Cek alias
+alias ptop
+
+# Cek lokasi
+which ptop
+
+# Test run
+ptop
+```
+
+#### Windows
+```powershell
+# Cek command
+where ptop
+
+# Test run
+ptop
+```
+
+---
+
+## ⌨️ Shortcut Keyboard
 
 | Tombol | Fungsi | Deskripsi |
 |--------|--------|-----------|
@@ -312,7 +518,9 @@ python /path/to/aegis_monitor.py
 | `H` | Help | Tampilkan menu bantuan |
 | `Ctrl+C` | Exit | Keluar darurat dari aplikasi |
 
-### 📁 Struktur Export
+---
+
+## 📁 Struktur Export
 
 Semua file export disimpan di folder `aegis_exports/`:
 
@@ -464,6 +672,20 @@ sudo python aegis_monitor.py
 ```bash
 export PYTHONIOENCODING=utf-8
 python aegis_monitor.py
+```
+
+### 🐛 Error: `command not found: ptop`
+
+**Solusi:**
+```bash
+# Reload konfigurasi
+source ~/.bashrc  # atau source ~/.zshrc
+
+# Cek alias
+alias ptop
+
+# Cek PATH
+echo $PATH
 ```
 
 ---
